@@ -27,6 +27,12 @@ nginx:
 
 # Build locally
 ```
-# Build docker image
-docker build --tag nginx-local-ssl .
+# Setup docker builder
+docker buildx create --name mybuilder --driver-opt network=host --use
+
+# Build docker image (multi-arch version)
+docker buildx build \
+    --push \
+    --tag nanomathias/nginx-local-ssl:release-1.0.1 \
+    --platform linux/amd64,linux/arm64 .
 ```
